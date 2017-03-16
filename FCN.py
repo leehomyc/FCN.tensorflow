@@ -149,7 +149,8 @@ def main(argv=None):
     tf.summary.image("input_image", image, max_outputs=2)
     tf.summary.image("ground_truth", tf.cast(annotation, tf.uint8), max_outputs=2)
     tf.summary.image("pred_annotation", tf.cast(pred_annotation, tf.uint8), max_outputs=2)
-    loss = tf.reduce_mean((tf.nn.sparse_softmax_cross_entropy_with_logits(tf.squeeze(annotation, squeeze_dims=[3]),logits,
+    this_labels=tf.squeeze(annotation, squeeze_dims=[3])
+    loss = tf.reduce_mean((tf.nn.sparse_softmax_cross_entropy_with_logits(this_labels,logits,
                                                                           name="entropy")))
     tf.summary.scalar("entropy", loss)
 
